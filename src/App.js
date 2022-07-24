@@ -1,5 +1,11 @@
+import FormPage from "./components/form/Form";
+
 function App() {
-  return <div className="App">App</div>;
+  return (
+    <div className="App">
+      <FormPage />
+    </div>
+  );
 }
 
 export default App;
