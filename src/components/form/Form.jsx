@@ -1,7 +1,8 @@
 import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import ModalPage from "../modal/ModalPage";
 import Rows from "../table/Rows";
-import { addContact, db, doc } from "../utils/firebase";
+import { addContact, db } from "../utils/firebase";
 
 const FormPage = () => {
   const [inputs, setInputs] = useState({
@@ -10,6 +11,7 @@ const FormPage = () => {
     gender: "",
   });
   const [contect, setContect] = useState([]);
+  const [show, setShow] = useState(false);
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -103,13 +105,14 @@ const FormPage = () => {
           <tbody>
             {contect?.map((row) => {
               return (
-                <tr>
-                  <Rows row={row} key={row.id} />
+                <tr key={row.id}>
+                  <Rows row={row} setShow={setShow} />
                 </tr>
               );
             })}
           </tbody>
         </table>
+        {show && <ModalPage setShow={setShow} show={show} />}
       </div>
     </div>
   );
