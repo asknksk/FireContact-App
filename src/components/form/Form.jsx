@@ -18,16 +18,29 @@ const FormPage = () => {
 
   useEffect(() => {
     onSnapshot(collection(db, "contact"), (doc) => {
-      setContect(doc.docs);
+      setContect(
+        doc.docs.reduce(
+          (contacts, contact) => [
+            ...contacts,
+            { ...contact.data(), id: contact.id },
+          ],
+          []
+        )
+      );
     });
   }, []);
-  // console.log(contect[0].data());
+  // console.log(contect);
   // contect.map((row) => {
-  //   console.log(row.data());
+  //   console.log(row);
   // });
   const handleSubmit = async (e) => {
     e.preventDefault();
     await addContact(inputs);
+    setInputs({
+      name: "",
+      phoneNumber: "",
+      gender: "",
+    });
   };
 
   return (
@@ -65,9 +78,7 @@ const FormPage = () => {
             onChange={handleChange}
             required
           >
-            <option selected disabled>
-              Gender
-            </option>
+            <option selected>Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
@@ -93,7 +104,7 @@ const FormPage = () => {
             {contect?.map((row) => {
               return (
                 <tr>
-                  <Rows row={row.data()} key={row.id} />
+                  <Rows row={row} key={row.id} />
                 </tr>
               );
             })}

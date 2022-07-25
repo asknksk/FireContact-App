@@ -5,6 +5,7 @@ import {
   collection,
   onSnapshot,
   doc,
+  deleteDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -25,10 +26,17 @@ export const db = getFirestore(app);
 export const addContact = async (data) => {
   try {
     const result = await addDoc(collection(db, "contact"), data);
-    console.log(result);
+    return result;
   } catch (e) {
     console.log("Error adding document: ", e);
   }
 };
 
-
+export const deleteContact = async (id) => {
+  try {
+    const result = await deleteDoc(doc(db, "contact", id));
+    return result;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
