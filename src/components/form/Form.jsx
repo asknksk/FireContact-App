@@ -12,6 +12,7 @@ const FormPage = () => {
   });
   const [contect, setContect] = useState([]);
   const [show, setShow] = useState(false);
+  const [updateInfo, setUpdateInfo] = useState({});
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -106,13 +107,26 @@ const FormPage = () => {
             {contect?.map((row) => {
               return (
                 <tr key={row.id}>
-                  <Rows row={row} setShow={setShow} />
+                  <Rows
+                    row={row}
+                    setShow={setShow}
+                    setUpdateInfo={setUpdateInfo}
+                  />
                 </tr>
               );
             })}
           </tbody>
         </table>
-        {show && <ModalPage setShow={setShow} show={show} />}
+        {show && (
+          <ModalPage
+            setShow={setShow}
+            show={show}
+            contect={contect}
+            setUpdateInfo={setUpdateInfo}
+            updateInfo={updateInfo}
+            setContect={setContect}
+          />
+        )}
       </div>
     </div>
   );

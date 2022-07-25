@@ -1,9 +1,24 @@
+import { doc, updateDoc } from "firebase/firestore";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { db } from "../utils/firebase";
 
-const ModalPage = ({ setShow, show }) => {
+const ModalPage = ({ setShow, show, contect, setUpdateInfo, updateInfo }) => {
   const handleClose = () => setShow(false);
+
+  const handleChange = (e) => {
+    setUpdateInfo({ ...updateInfo, [e.target.name]: e.target.value });
+  };
+
+  const handleUpdate = async () => {
+    await updateDoc(doc(db, "contact", updateInfo.id), {
+      name: updateInfo.name,
+      phoneNumber: updateInfo.phoneNumber,
+      gender: updateInfo.gender,
+    });
+    handleClose();
+  };
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -18,9 +33,9 @@ const ModalPage = ({ setShow, show }) => {
             className="form-control mb-3 "
             name="name"
             aria-describedby="helpId"
-            // value={inputs.name}
+            value={updateInfo.name}
             placeholder="Name"
-            // onChange={handleChange}
+            onChange={(e) => handleChange(e)}
             required
           />
           <input
@@ -28,18 +43,18 @@ const ModalPage = ({ setShow, show }) => {
             className="form-control mb-3"
             name="phoneNumber"
             aria-describedby="helpId"
-            // value={inputs.phoneNumber}
+            value={updateInfo.phoneNumber}
             placeholder="Phone Number"
-            // onChange={handleChange}
+            onChange={(e) => handleChange(e)}
             required
           />
 
           <select
             className="form-select"
             aria-label="Default select example"
-            // value={inputs.gender}
+            value={updateInfo.gender}
             name="gender"
-            // onChange={handleChange}
+            onChange={(e) => handleChange(e)}
             required
           >
             <option selected>Gender</option>
@@ -47,14 +62,13 @@ const ModalPage = ({ setShow, show }) => {
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
-        
         </form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleClose}>
+        <Button variant="primary" onClick={handleUpdate}>
           Save Changes
         </Button>
       </Modal.Footer>

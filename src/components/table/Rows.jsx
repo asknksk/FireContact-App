@@ -1,13 +1,19 @@
 import { GrTrash } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
-import { db, deleteContact } from "../utils/firebase";
+import { deleteContact } from "../utils/firebase";
 
-const Rows = ({ row, setShow }) => {
+const Rows = ({ row, setShow, setUpdateInfo }) => {
   const handleDelete = async (id) => {
     await deleteContact(id);
   };
 
-  const handleEdit = async (id) => {
+  const handleEdit = (id, name, phoneNumber, gender) => {
+    setUpdateInfo({
+      id: id,
+      name: name,
+      phoneNumber: phoneNumber,
+      gender: gender,
+    });
     setShow(true);
     // await updateDoc(doc(db, "contact", id), {
     //   name: "deneme",
@@ -25,7 +31,11 @@ const Rows = ({ row, setShow }) => {
         <GrTrash onClick={() => handleDelete(row.id)} />
       </td>
       <td>
-        <FiEdit onClick={() => handleEdit(row.id)} />
+        <FiEdit
+          onClick={() =>
+            handleEdit(row.id, row.name, row.phoneNumber, row.gender)
+          }
+        />
       </td>
     </>
   );
