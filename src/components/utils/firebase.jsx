@@ -1,7 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { initializeApp } from "firebase/app";
-import { getFirestore, addDoc, collection } from "firebase/firestore";
+import {
+  getFirestore,
+  addDoc,
+  collection,
+  onSnapshot,
+  doc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -26,3 +30,5 @@ export const addContact = async (data) => {
     console.log("Error adding document: ", e);
   }
 };
+
+

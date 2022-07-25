@@ -1,36 +1,76 @@
-import { Table } from "react-bootstrap";
+import { collection, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import Rows from "../table/Rows";
+import { addContact, db, doc } from "../utils/firebase";
 
 const FormPage = () => {
+  const [inputs, setInputs] = useState({
+    name: "",
+    phoneNumber: "",
+    gender: "",
+  });
+  const [contect, setContect] = useState([]);
+
+  const handleChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+  // console.log(inputs);
+
+  useEffect(() => {
+    onSnapshot(collection(db, "contact"), (doc) => {
+      setContect(doc.docs);
+    });
+  }, []);
+  // console.log(contect[0].data());
+  // contect.map((row) => {
+  //   console.log(row.data());
+  // });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await addContact(inputs);
+  };
+
   return (
     <div className="container-fluid d-flex align-items-center justify-content-evenly">
       <div>
         <h1>{`<ed8en />`} DESIGN</h1>
         <h2>ADD CONTACT</h2>
-        <form className="d-flex flex-column mt-2">
+        <form className="d-flex flex-column mt-2" onSubmit={handleSubmit}>
           <input
             type="text"
             className="form-control mb-3 "
             name="name"
-            id=""
             aria-describedby="helpId"
+            value={inputs.name}
             placeholder="Name"
+            onChange={handleChange}
+            required
           />
           <input
             type="number"
             className="form-control mb-3"
             name="phoneNumber"
-            id=""
             aria-describedby="helpId"
+            value={inputs.phoneNumber}
             placeholder="Phone Number"
+            onChange={handleChange}
+            required
           />
 
-          <select className="form-select" aria-label="Default select example">
+          <select
+            className="form-select"
+            aria-label="Default select example"
+            value={inputs.gender}
+            name="gender"
+            onChange={handleChange}
+            required
+          >
             <option selected disabled>
               Gender
             </option>
-            <option value="1">Male</option>
-            <option value="2">Female</option>
-            <option value="3">Other</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
           </select>
           <button type="submit" className="btn btn-primary">
             Add
@@ -50,16 +90,13 @@ const FormPage = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
+            {contect?.map((row) => {
+              return (
+                <tr>
+                  <Rows row={row.data()} key={row.id} />
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
