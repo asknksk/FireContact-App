@@ -38,20 +38,31 @@ const FormPage = () => {
   // });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addContact(inputs);
-    setInputs({
-      name: "",
-      phoneNumber: "",
-      gender: "",
-    });
+    if (inputs.gender && inputs.name && inputs.phoneNumber) {
+      await addContact(inputs);
+      setInputs({
+        name: "",
+        phoneNumber: "",
+        gender: "",
+      });
+    }
   };
 
   return (
-    <div className="container-fluid d-flex align-items-center justify-content-evenly">
-      <div>
-        <h1>{`<ed8en />`} DESIGN</h1>
-        <h2>ADD CONTACT</h2>
-        <form className="d-flex flex-column mt-2" onSubmit={handleSubmit}>
+    <div className="container-fluid d-flex align-items-center justify-content-evenly mt-5">
+      <div className="text-center w-25">
+        <h1 className="text-bg-light p-2">
+          <a
+            className="text-danger text-decoration-none"
+            href="https://github.com/asknksk/FireContact-App"
+          >{`<asknksk />`}</a>{" "}
+          DESIGN
+        </h1>
+        <h2 className="text-bg-light p-2 ">ADD CONTACT</h2>
+        <form
+          className="d-flex flex-column mt-2 text-bg-light p-3 mt-2"
+          onSubmit={handleSubmit}
+        >
           <input
             type="text"
             className="form-control mb-3 "
@@ -81,19 +92,19 @@ const FormPage = () => {
             onChange={handleChange}
             required
           >
-            <option selected>Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option dvalue="">Gender</option>
+            <option dvalue="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary mt-3">
             Add
           </button>
         </form>
       </div>
-      <div className="d-flex flex-column">
-        <h2>ADD CONTACT</h2>
-        <table className="table table-striped table-hover table-bordered">
+      <div className="d-flex flex-column w-50">
+        <h2 className="text-bg-light text-center p-2 border-non">CONTACTS</h2>
+        <table className="table table-striped table-hover text-bg-light p-3 text-center">
           <thead>
             <tr>
               <th scope="col">Username</th>

@@ -1,5 +1,4 @@
-import { GrTrash } from "react-icons/gr";
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { deleteContact } from "../utils/firebase";
 
 const Rows = ({ row, setShow, setUpdateInfo }) => {
@@ -15,23 +14,21 @@ const Rows = ({ row, setShow, setUpdateInfo }) => {
       gender: gender,
     });
     setShow(true);
-    // await updateDoc(doc(db, "contact", id), {
-    //   name: "deneme",
-    //   phoneNumber: "123",
-    //   gender: "male",
-    // });
-    // console.log(id);
   };
   return (
     <>
       <td>{row.name}</td>
       <td>{row.phoneNumber}</td>
       <td>{row.gender}</td>
-      <td>
-        <GrTrash onClick={() => handleDelete(row.id)} />
+      <td className="text-center">
+        <FiTrash2
+          className="text-danger cursor-pointer fs-4"
+          onClick={() => handleDelete(row.id)}
+        />
       </td>
-      <td>
+      <td className="text-center">
         <FiEdit
+          className="text-info cursor-pointer fs-4"
           onClick={() =>
             handleEdit(row.id, row.name, row.phoneNumber, row.gender)
           }

@@ -57,10 +57,9 @@ const ModalPage = ({ setShow, show, contect, setUpdateInfo, updateInfo }) => {
             onChange={(e) => handleChange(e)}
             required
           >
-            <option selected>Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
         </form>
       </Modal.Body>
