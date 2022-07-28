@@ -49,8 +49,8 @@ const FormPage = () => {
   };
 
   return (
-    <div className="container-fluid d-flex align-items-center justify-content-evenly mt-5">
-      <div className="text-center w-25">
+    <div className=" container-app">
+      <div className="text-center ">
         <h1 className="text-bg-light p-2">
           <a
             className="text-danger text-decoration-none"
@@ -102,7 +102,7 @@ const FormPage = () => {
           </button>
         </form>
       </div>
-      <div className="d-flex flex-column w-50">
+      <div className="d-flex flex-column ">
         <h2 className="text-bg-light text-center p-2 border-non">CONTACTS</h2>
         <table className="table table-striped table-hover text-bg-light p-3 text-center">
           <thead>

@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <div className="d-flex justify-content-center align-items-center ">
+    <div>
       <ToastContainer />
       <FormPage />
     </div>
