@@ -19,7 +19,7 @@
 
 ## Project Preview
 
-![]()
+![](https://github.com/asknksk/FireContact-App/blob/master/src/assets/Preview.gif)
 
 <hr>
 
