@@ -1,9 +1,11 @@
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { deleteContact } from "../utils/firebase";
+import { toastSuccessNotify } from "../utils/customToastify";
 
 const Rows = ({ row, setShow, setUpdateInfo }) => {
   const handleDelete = async (id) => {
     await deleteContact(id);
+    toastSuccessNotify("Deleted");
   };
 
   const handleEdit = (id, name, phoneNumber, gender) => {

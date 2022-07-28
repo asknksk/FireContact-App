@@ -2,6 +2,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { toastSuccessNotify } from "../utils/customToastify";
 import { db } from "../utils/firebase";
 
 const ModalPage = ({ setShow, show, contect, setUpdateInfo, updateInfo }) => {
@@ -17,6 +18,8 @@ const ModalPage = ({ setShow, show, contect, setUpdateInfo, updateInfo }) => {
       phoneNumber: updateInfo.phoneNumber,
       gender: updateInfo.gender,
     });
+    toastSuccessNotify("Edited");
+
     handleClose();
   };
 

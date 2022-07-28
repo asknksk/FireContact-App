@@ -2,6 +2,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ModalPage from "../modal/ModalPage";
 import Rows from "../table/Rows";
+import { toastSuccessNotify, toastWarnNotify } from "../utils/customToastify";
 import { addContact, db } from "../utils/firebase";
 
 const FormPage = () => {
@@ -17,7 +18,6 @@ const FormPage = () => {
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
-  // console.log(inputs);
 
   useEffect(() => {
     onSnapshot(collection(db, "contact"), (doc) => {
@@ -32,10 +32,7 @@ const FormPage = () => {
       );
     });
   }, []);
-  // console.log(contect);
-  // contect.map((row) => {
-  //   console.log(row);
-  // });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (inputs.gender && inputs.name && inputs.phoneNumber) {
@@ -45,6 +42,9 @@ const FormPage = () => {
         phoneNumber: "",
         gender: "",
       });
+      toastSuccessNotify("Success!");
+    } else {
+      toastWarnNotify("Please Select Gender");
     }
   };
 
